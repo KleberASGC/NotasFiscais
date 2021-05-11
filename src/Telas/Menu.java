@@ -7,6 +7,9 @@ package Telas;
 
 import Acoes.LeituraXML;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -107,7 +110,11 @@ public class Menu extends javax.swing.JFrame {
             dir = escolheArquivos.getSelectedFile().getAbsolutePath();
             arquivos = escolheArquivos.getSelectedFiles();
             for (int i = 0; i < arquivos.length; i++) 
-                LeituraXML.lerXML(arquivos[i]);
+                try {
+                    LeituraXML.lerXML(arquivos[i]);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
         } else {
             JOptionPane.showMessageDialog(new JFrame(), "Os arquivos selecionados não são compatíveis com essa aplicação.");
