@@ -1,5 +1,6 @@
 package Acoes;
 
+import Telas.CredenciaisBanco;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class LeituraXML {
     
     public static File arquivoXML;
 
-    public static void lerXML(File arquivo) throws FileNotFoundException {
+    public static void lerXML(File arquivo, CredenciaisBanco credenciais) throws FileNotFoundException {
         
        arquivoXML = arquivo;
 
@@ -25,15 +26,15 @@ public class LeituraXML {
        String assinaturaInvoices = assinaturaSQL("invoices");
 
        String valuesInvoices = adicionaValoresInvoices(doc);
-        
-       InsercaoBanco inserirInvoices = new InsercaoBanco(assinaturaInvoices, valuesInvoices);
+       
+       credenciais.insercaoBanco(assinaturaInvoices, valuesInvoices);
 
        String assinaturaItems = assinaturaSQL("items");
        
        String valuesItems = adicionaValoresItems(doc);
 
-       InsercaoBanco inserirItems = new InsercaoBanco(assinaturaItems, valuesItems);
-
+       credenciais.insercaoBanco(assinaturaItems, valuesItems);
+       
     }
 
     public static Document fazParseArquivo(File arquivo) {

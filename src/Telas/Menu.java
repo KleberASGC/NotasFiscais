@@ -101,25 +101,8 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-        JFileChooser escolheArquivos = new JFileChooser();
-        escolheArquivos.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        escolheArquivos.setMultiSelectionEnabled(true);
-        String dir = "";
-        File[] arquivos;
-        if (escolheArquivos.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            dir = escolheArquivos.getSelectedFile().getAbsolutePath();
-            arquivos = escolheArquivos.getSelectedFiles();
-            for (int i = 0; i < arquivos.length; i++) 
-                try {
-                    LeituraXML.lerXML(arquivos[i]);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-        } else {
-            JOptionPane.showMessageDialog(new JFrame(), "Os arquivos selecionados não são compatíveis com essa aplicação.");
-        }
-        JOptionPane.showMessageDialog(new JFrame(), "Fim da leitura e inserção dos arquivos no banco de dados.");
+        CredenciaisBanco credenciais = new CredenciaisBanco();
+        credenciais.setVisible(true);
     }//GEN-LAST:event_btnProcurarActionPerformed
 
     /**
