@@ -64,7 +64,7 @@ public class LeituraXML {
         StringBuilder montadorString = new StringBuilder();
         if (nomeTabela.equals("invoices")) {
             montadorString.append("INSERT INTO " + nomeTabela
-                    + " (created_at,updated_at,number,model,serie,cfop,nfe_Key,amount,bc_icms_amount,icms_amount,"
+                    + " (created_at,updated_at,number,model,serie,note_issue_date,note_entry_date,cfop,nfe_Key,cnpj_emit,cnpj_dest,amount,bc_icms_amount,icms_amount,"
                     + "bc_icms_st_amount,icms_st_amount,ecf_serial_number,document_type,ref_nfe,operation_nature,additional_data,"
                             + "arquivo_nfe)\n");
 
@@ -93,12 +93,28 @@ public class LeituraXML {
 
         NodeList listaDeSerie = doc.getElementsByTagName("serie");
         valoresInvoices.append("'" + listaDeSerie.item(0).getTextContent() + "',");
+        
+        NodeList listaDataHoraEmissao = doc.getElementsByTagName("dhEmi");
+        valoresInvoices.append("'" + listaDataHoraEmissao.item(0).getTextContent()
+                .replace("T", " ") + "',");
+        
+        NodeList listaDataHoraSaidaEntrada = doc.getElementsByTagName("dhSaiEnt");
+        valoresInvoices.append("'" + listaDataHoraSaidaEntrada.item(0).getTextContent()
+                .replace("T", " ")+ "',");
 
         NodeList listaDeCFOP = doc.getElementsByTagName("CFOP");
         valoresInvoices.append(listaDeCFOP.item(0).getTextContent() + ",");
 
         NodeList listaDeChaveAcesso = doc.getElementsByTagName("chNFe");
         valoresInvoices.append("'" + listaDeChaveAcesso.item(0).getTextContent() + "',");
+        
+        NodeList listaCNPJ = doc.getElementsByTagName("CNPJ");
+        
+// CNPJ do Emitente:        
+        valoresInvoices.append("'" + listaCNPJ.item(0).getTextContent() + "',");
+// CNPJ do Destinatário:        
+        valoresInvoices.append("'" + listaCNPJ.item(1).getTextContent() + "',");
+        
 
         NodeList listaValor = doc.getElementsByTagName("vNF");
         valoresInvoices.append(listaValor.item(0).getTextContent() + ",");
